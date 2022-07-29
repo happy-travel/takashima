@@ -4,7 +4,7 @@ name: Build
 
 trigger:
   branch:
-    - main
+    - master
   event:
     include:
       - push
@@ -73,7 +73,7 @@ name: production
 
 trigger:
   branches:
-    - main
+    - master
   event:
     - promote
   target:
