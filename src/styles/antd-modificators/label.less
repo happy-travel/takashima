@@ -1,0 +1,48 @@
+.ant-form-item-label {
+    & > label {
+        &:after {
+            display: none;
+        }
+        &.ant-form-item-required:not(.ant-form-item-required-mark-optional) {
+            &:before {
+                display: none;
+            }
+            &:after {
+                display: inline-block;
+                margin-right: 4px;
+                color: #ff4d4f;
+                font-size: 14px;
+                font-family: SimSun, sans-serif;
+                line-height: 1;
+                content: '*';
+            }
+        }
+    }
+}
+
+.ant-form-vertical {
+    .ant-form-item-label {
+        overflow: visible;
+        & > label {
+            text-transform: uppercase;
+            line-height: 16px;
+            font-size: 11px;
+            color: #777777;
+            height: 24px;
+            margin-bottom: -9px;
+            padding: 0 3px;
+            float: left;
+            background: #ffffff;
+            margin-left: 16px;
+            border-radius: 10px;
+            z-index: 5;
+            position: relative;
+            display: block;
+            font-weight: 600;
+            transition: color 0.1s ease;
+            max-height: 16px;
+            text-overflow: ellipsis;
+            overflow-y: hidden;
+        }
+    }
+}

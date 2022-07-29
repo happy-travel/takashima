@@ -1,0 +1,41 @@
+@import "./base/colors"
+@import "./components/side-menu"
+@import "./components/comparison-table"
+@import "./components/loader"
+@import "./icons"
+
+[dir]
+    main
+        padding: 0 64px 160px
+
+    .ant-layout-content
+        min-height: 100vh
+        background: #ffffff
+
+    .ant-menu-horizontal
+        margin: 0 -64px 24px
+        padding: 0 44px
+
+    .ant-page-header
+        padding: 8px 0 32px
+        & + .ant-menu-horizontal
+            margin-top: -24px
+
+    .ant-table
+        a
+            color: $color-blue
+
+    .ant-collapse
+        background: #F7F8FC
+
+.green
+    color: $color-green
+
+.red
+    color: $color-red
+
+.link
+    color: $color-blue
+
+.gray
+    color: $color-text-light

@@ -1,0 +1,34 @@
+@keyframes notification-line {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0;
+    }
+}
+
+.notification {
+    border-radius: 20px;
+    height: 100px;
+    &::after {
+        animation: 4.5s linear 0s alternate notification-line;
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        background-color: #3e90f2;
+    }
+}
+
+.notification-success {
+    &::after {
+        background-color: #5cc873;
+    }
+}
+
+.notification-failed {
+    &::after {
+        background-color: #f9a51a;
+    }
+}

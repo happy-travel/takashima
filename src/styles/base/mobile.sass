@@ -1,0 +1,18 @@
+$media-phone: 768px
+$media-desktop-width: 1000px
+
+@mixin phone
+  @media (max-width: #{$media-phone - 0.5px})
+    @content
+
+@mixin mobile
+  @media (max-width: #{$media-desktop-width - 0.5px})
+    @content
+
+@mixin desktop
+  @media (min-width: #{$media-desktop-width})
+    @content
+
+@mixin except-phone
+  @media (min-width: #{$media-phone})
+    @content

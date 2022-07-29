@@ -1,0 +1,15 @@
+@mixin icon($image, $width: 18, $height: 18)
+  background-image: url($image)
+  background-repeat: no-repeat
+  width: #{$width}px
+  height: #{$height}px
+  display: block
+
+.icon
+
+  &.icon-success
+    @include icon("./icons/notification/success.svg", 30, 30)
+  &.icon-failed
+    @include icon("./icons/notification/warning.svg", 30, 30)
+  &.icon-information
+    @include icon("./icons/notification/information.svg", 30, 30)

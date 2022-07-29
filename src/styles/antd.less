@@ -1,0 +1,89 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~antd/dist/antd.less';
+
+@import './antd-modificators/label.less';
+@import './antd-modificators/datepicker.less';
+@import './antd-modificators/modal.less';
+@import './antd-modificators/transfer.less';
+@import './antd-modificators/table.less';
+@import './antd-modificators/notification.less';
+
+@border-radius-base: 6px;
+@border-radius-sm: 2px;
+@primary-color: #f9a51a;
+
+@height-base: 44px;
+@height-lg: 54px;
+@height-sm: 32px;
+
+@padding-lg: 32px;
+@padding-md: 24px;
+@padding-sm: 18px;
+@padding-xs: 12px;
+@padding-xss: 6px;
+
+.ant-field {
+    height: 44px;
+}
+
+@checkbox-border-radius: 4px;
+@form-vertical-label-padding: 0 0 0px;
+
+@modal-mask-bg: rgba(249, 247, 244, 0.4);
+
+@font-family: 'PT Sans', sans-serif;
+body {
+    letter-spacing: 0.23px;
+}
+
+.ant-layout-content {
+    min-width: 800px;
+}
+
+.ant-popover-inner-content {
+    padding: 12px 22px;
+}
+
+.ant-input-affix-wrapper .ant-input {
+    border-radius: 0;
+}
+
+.ant-spin {
+    display: none !important;
+}
+
+.ant-notification-notice {
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 25px;
+    padding: 25px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
+    height: 86px;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+.ant-notification-notice-message-single-line-auto-margin {
+    margin-left: 10px !important;
+}
+
+.ant-notification-notice-icon {
+    padding: 7px 23px 7px 0;
+    border-right: 1px solid lightgray;
+    height: 52px;
+}
+
+.ant-notification-notice-with-icon .ant-notification-notice-message {
+    margin-left: 80px;
+    padding-top: 7px;
+}
+
+.ant-tooltip-inner {
+    border-radius: 9px;
+}
