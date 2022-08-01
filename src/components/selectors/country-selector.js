@@ -1,27 +1,18 @@
 import React from 'react';
-import { RequestSelector } from 'common/request-selector';
-import apiMapperMethods from 'core/mapper-methods';
-
-// todo
+import { observer } from 'mobx-react';
+import { EntitySelector, useSelector } from 'common/entity-selector';
+import $enums from 'stores/enums';
 
 const optionsGenerator = (list = []) =>
     list.map((value) => ({
-        value: value.id,
-        label: value.countryName,
+        value: value.code,
+        label: value.name || '',
     }));
 
-const CountrySelector = (props) => (
-    <RequestSelector
-        request={(value) => ({
-            url: apiMapperMethods.searchCountries,
-            body: {
-                query: value,
-            },
-        })}
-        optionsGenerator={optionsGenerator}
-        placeholder="Any Country"
-        {...props}
-    />
-);
+const CountrySelector = observer((props) => {
+    const { options, loading } = useSelector($enums.countries, optionsGenerator);
+
+    return <EntitySelector placeholder="Any Countries" {...props} options={options} loading={loading} />;
+});
 
 export default CountrySelector;

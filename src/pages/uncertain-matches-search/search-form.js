@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Col, Form, Input, Row, Space } from 'antd';
+import { Button, Form, Input, Space } from 'antd';
+import SupplierSelector from 'components/selectors/supplier-selector';
+import CountrySelector from 'components/selectors/country-selector';
 
 const UncertainMatchesSearchForm = ({ form, onSubmit }) => (
     <Form
@@ -8,36 +10,27 @@ const UncertainMatchesSearchForm = ({ form, onSubmit }) => (
         layout="vertical"
         style={{ marginBottom: 30 }}
     >
-        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-            <Col lg={12} xl={6}>
-                <Form.Item name="countryCodes" label="Countries">
-                    <Input placeholder="make required - countryCodes" allowClear />
-                </Form.Item>
-            </Col>
-            <Col lg={12} xl={6}>
-                <Form.Item name="supplierCodes" label="Suppliers">
-                    <Input placeholder="supplierCodes" allowClear />
-                </Form.Item>
-            </Col>
-            <Col lg={12} xl={6}>
-                <Form.Item name="accommodationNameQuery" label="Accommodation Name Includes">
-                    <Input placeholder="accommodationNameQuery" allowClear />
-                </Form.Item>
-            </Col>
-            <Col span={24}>
-                <Space size="large">
-                    <Button type="primary" htmlType="submit">
-                        Search Uncertain Matches
-                    </Button>
-                    <Button htmlType="button" onClick={() => {
-                        form.resetFields();
-                        onSubmit({});
-                    }}>
-                        Clear Filters
-                    </Button>
-                </Space>
-            </Col>
-        </Row>
+        <Form.Item
+            name="countryCodes"
+            label="Countries"
+            /* todo rules={[{ required: true, message: 'Please Select Countries' }]} */
+        >
+            <CountrySelector placeholder="Select Countries" />
+        </Form.Item>
+        <Form.Item name="supplierCodes" label="Suppliers">
+            <SupplierSelector placeholder="Select Suppliers" />
+        </Form.Item>
+        <Form.Item name="accommodationNameQuery" label="Accommodation Name Includes">
+            <Input placeholder="Enter Accommodation Name (or Part)" allowClear />
+        </Form.Item>
+        <Space size="large">
+            <Button type="primary" htmlType="submit">
+                Search Uncertain Matches
+            </Button>
+            <Button htmlType="button" onClick={() => form.resetFields()}>
+                Clear Filters
+            </Button>
+        </Space>
     </Form>
 );
 

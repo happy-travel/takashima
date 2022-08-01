@@ -5,7 +5,7 @@ import { Table } from 'antd';
 
 const PAGE_SIZE = 10;
 
-const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id', page, setPage }) => {
+const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id', page, setPage, selectRow }) => {
     const [list, setList] = useState(null);
     const [total, setTotal] = useState(0);
 
@@ -32,7 +32,7 @@ const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id
             dataSource={list}
             columns={
                 list?.length
-                    ? columns({ page }).map((column) => ({
+                    ? columns({ page }, selectRow).map((column) => ({
                           title: column.header,
                           ...(typeof column.cell === 'string'
                               ? { dataIndex: column.cell }

@@ -1,27 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'iconsax-react';
 
-export const columns = (navigationState) => [
+export const columns = (navigationState, selectRow) => [
     {
         header: <div style={{ paddingLeft: 42 }}>Name</div>,
-        cell: (cell) => (
-            <Link to={`/match/${cell.relationAccommodationId}`} state={navigationState} className="row-link">
+        cell: (item) => (
+            <div onClick={() => selectRow(item)} className="row-link">
                 <div className="arrow-holder">
                     <span>
                         <ArrowRight size={14} />
                     </span>
                 </div>
                 <div>
-                    {cell.accommodations.length} Accommodations
+                    {item.accommodations.length} Accommodations
                     <br />
-                    <small>{cell.relationAccommodationId}</small>
+                    <small>{item.relationAccommodationId}</small>
                 </div>
-            </Link>
+            </div>
         ),
     },
     {
+        header: 'Name',
+        cell: (item) => item.accommodations[0].name,
+    },
+    {
         header: 'Location',
-        cell: (cell) => cell.city + ', ' + cell.countryName,
+        cell: (item) => item.accommodations[0].locality + ', ' + item.accommodations[0].country,
     },
 ];

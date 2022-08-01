@@ -14,7 +14,6 @@ const EntitySelector = ({
     value,
     style,
     showSearch = true,
-    maxTagCount = 2,
     disabled,
 }) => {
     const allSelected = multiple && options?.length > 1 && value?.length === options?.length;
@@ -28,12 +27,11 @@ const EntitySelector = ({
         <Select
             showSearch={showSearch}
             filterOption={filterOption}
-            mode={multiple ? 'multiple' : null}
+            mode="multiple"
             size={size}
             showArrow
             value={value}
             options={options}
-            maxTagCount={maxTagCount}
             loading={loading}
             placeholder={placeholder}
             onChange={onChange}
