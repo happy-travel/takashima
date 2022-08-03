@@ -13,7 +13,7 @@ const UncertainMatchesSearchForm = ({ form, onSubmit }) => (
         <Form.Item
             name="countryCodes"
             label="Countries"
-            /* todo rules={[{ required: true, message: 'Please Select Countries' }]} */
+            rules={[{ required: true, message: 'Please Select Countries' }]}
         >
             <CountrySelector placeholder="Select Countries" />
         </Form.Item>

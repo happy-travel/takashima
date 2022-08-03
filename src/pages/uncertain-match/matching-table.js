@@ -46,16 +46,21 @@ const MatchingTable = ({ accommodations, loading, onMerge, onSetMain, onShowDeta
             render: (item) => item.address,
         },
         {
+            header: 'Coordinates',
+            render: (item) => <>
+                {item.coordinates.latitude}<br />
+                {item.coordinates.longitude}
+            </>,
+        },
+        {
             header: 'Rating',
             render: (item) => item.rating,
         },
         {
-            header: 'Coordinates',
-            render: (item) => item.coordinates.latitude + ', ' + item.coordinates.longitude,
-        },
-        {
             header: 'Supplier Codes',
-            render: (item) => Object.keys(item.supplierCodes).map((supplier) => supplier + ': ' + item.supplierCodes[supplier]).join(', '),
+            render: (item) => Object.keys(item.supplierCodes).map(
+                (supplier) => <>{supplier + ': ' + item.supplierCodes[supplier]}<br /></>
+            ),
         },
         /* todo {
             header: '',

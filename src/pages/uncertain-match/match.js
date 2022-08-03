@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useParams, useNavigate, useLocation} from 'react-router-dom';
 import { API, useTitle } from 'htcore';
 import { PageHeader, Button } from 'antd';
 import Loader from 'core/loader';
 import MatchingTable from './matching-table';
 
-const UncertainMatch = ({ match, onBack }) => {
-    useTitle('Uncertain Match');
+const UncertainMatch = () => {
+    const { relationAccommodationId } = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const [accommodations, setAccommodations] = useState(match?.accommodations);
+    useTitle(`Uncertain Match ${relationAccommodationId}`);
+
+    const [accommodations, setAccommodations] = useState(null);
     const [mergeResult, setMergeResult] = useState({});
-
     const [tableLoading, setTableLoading] = useState(false);
-    const [pageLoading, setPageLoading] = useState(false);
+    const [pageLoading, setPageLoading] = useState(true);
+
+    useEffect(() => {
+        API.get({
+            url: `/accommodations/uncertain-matches/relations/${relationAccommodationId}`,
+            success: (result) => {
+                setAccommodations(result.accommodations);
+                setPageLoading(false);
+            },
+        })
+    }, []);
 
     const onMerge = (htId) => {
         setTableLoading(true);
@@ -110,7 +124,7 @@ const UncertainMatch = ({ match, onBack }) => {
                 <Loader page />
             }
             <PageHeader
-                onBack={onBack}
+                onBack={() => navigate(-1, { state: location?.state })}
                 title="Uncertain Match"
                 extra={<>
                     <Button onClick={onReset}>Reset</Button>

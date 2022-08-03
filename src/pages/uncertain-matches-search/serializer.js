@@ -3,10 +3,6 @@ const safeString = (val) => val.replace(/'/g, "''");
 export const serializeRequest = (values, top, skip) => {
     const filters = {};
 
-    // todo
-    filters.accommodationNameQuery = 'jumeirah';
-    filters.countryCodes = ['AE'];
-
     if (values.countryCodes) {
         filters.countryCodes = values.countryCodes;
     }

@@ -16,7 +16,7 @@ const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id
                 url: route,
                 body: serializeRequest(formValues, PAGE_SIZE, (page - 1) * PAGE_SIZE),
                 success: (result) => {
-                    setList(result.accommodationUncertainMatchesRelationsData);
+                    setList(result.accommodationUncertainMatchRelationsData);
                     setTotal(result.totalNumberOfItems);
                 },
             });
