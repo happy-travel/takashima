@@ -1,10 +1,22 @@
 .column-main
     background: #FAFBFF !important
-    box-shadow: black 0 30px 4px
+    border: 2px solid #1CBE69
+    border-top-width: 0
+    border-bottom-width: 0
     z-index: 3 !important
+th.column-main,
+th.column-group
+    border-top-width: 1px
+    border-bottom-color: #f0f0f0 !important
+tr:last-child .column-main
+    border-bottom: 1px solid #1CBE69
 
 .column-group
     background: #F7F8FC !important
     color: #444
-    box-shadow: black 0 30px 2px
+    border: 2px solid #99bb99
+    border-top-width: 0
+    border-bottom-width: 0
     z-index: 2 !important
+tr:last-child .column-group
+    border-bottom: 1px solid #99bb99

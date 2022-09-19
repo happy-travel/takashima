@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {useParams, useNavigate, useLocation} from 'react-router-dom';
 import { API, useTitle } from 'htcore';
 import apiMethods from 'core/methods';
-import { PageHeader, Button } from 'antd';
+import {PageHeader, Button, Space} from 'antd';
 import Loader from 'core/loader';
 import MatchingTable from 'components/matching-table';
+import {RightCircleOutlined} from '@ant-design/icons';
 
 const UncertainMatch = () => {
     const { mergeId } = useParams();
@@ -14,11 +15,11 @@ const UncertainMatch = () => {
     useTitle(`Merge ${mergeId}`);
 
     const [accommodations, setAccommodations] = useState(null);
-    const [mergeResult, setMergeResult] = useState({});
+    const [mergeResult, setMergeResult] = useState([]);
     const [tableLoading, setTableLoading] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
 
-    useEffect(() => {
+    const loadPage = () => {
         setPageLoading(true);
         API.get({
             url: apiMethods.mergeHistoryItem(mergeId),
@@ -29,10 +30,12 @@ const UncertainMatch = () => {
                 ]);
                 setPageLoading(false);
             },
-        })
-    }, []);
+        });
+    };
 
-    const onSubmitMerge = () => {
+    useEffect(loadPage, []);
+
+    const onSubmit = () => {
         // todo: confirmation
 
         if (!Object.keys(mergeResult).length) {
@@ -41,21 +44,11 @@ const UncertainMatch = () => {
 
         setPageLoading(true);
 
-        const body = {
-            AccommodationHtIds: Object.keys(mergeResult).map(
-                (groupMainItem) => ({
-                    HtIds: [
-                        groupMainItem,
-                        ...mergeResult[groupMainItem],
-                    ],
-                })
-            ),
-            RelationAccommodationId: match.relationAccommodationId
-        };
-
         API.post({
-            url: '/accommodations/uncertain-matches/merge',
-            body,
+            url: apiMethods.mergeHistoryUnmerge(mergeId),
+            body: {
+                mergedAccommodationHtIds: mergeResult
+            },
             success: (result) => {
                 // todo: notify success
                 // todo: return back
@@ -73,6 +66,33 @@ const UncertainMatch = () => {
         setMergeResult({});
     };
 
+    const onUnmerge = (htId) => {
+        setTableLoading(true);
+        setMergeResult([
+            ...mergeResult,
+            htId,
+        ]);
+        setTimeout(() => {
+            setTableLoading(false);
+        }, 300);
+    };
+
+    const ControlRow = {
+        header: '',
+        render: (item) => item.id !== accommodations[0].id ? <Space size="small">
+            { !mergeResult.includes(item.htId) &&
+                <Button
+                    type="primary"
+                    size="small"
+                    icon={<RightCircleOutlined />}
+                    onClick={() => onUnmerge(item.htId)}
+                >
+                    Unmerge
+                </Button>
+            }
+        </Space> : null,
+    };
+
     if (!accommodations) {
         return null;
     }
@@ -87,7 +107,7 @@ const UncertainMatch = () => {
                 title="History"
                 extra={<>
                     <Button onClick={onReset}>Reset</Button>
-                    <Button type="primary" onClick={onSubmitMerge} disabled={!Object.keys(mergeResult).length}>
+                    <Button type="primary" onClick={onSubmit} disabled={!Object.keys(mergeResult).length}>
                         Submit Unmerge
                     </Button>
                 </>}
@@ -96,10 +116,7 @@ const UncertainMatch = () => {
                 accommodations={accommodations}
                 tableLoading={tableLoading}
                 mergeResult={mergeResult}
-                ControlRow={{
-                    header: '',
-                    render: (item) => '',
-                }}
+                ControlRow={ControlRow}
             />
         </>
     );

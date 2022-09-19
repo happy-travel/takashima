@@ -30,9 +30,7 @@ const UncertainMatch = () => {
         });
     };
 
-    useEffect(() => {
-        loadPage();
-    }, []);
+    useEffect(loadPage, []);
 
     const onMerge = (htId) => {
         setTableLoading(true);
