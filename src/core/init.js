@@ -1,14 +1,15 @@
 import { API } from '../htcore';
+import apiMethods from 'core/methods';
 import $auth from 'stores/auth';
 import $enums from 'stores/enums';
 
 const initEnums = () => {
     API.get({
-        url: '/suppliers',
+        url: apiMethods.suppliers(),
         success: (data) => $enums.setSuppliers(data),
     });
     API.get({
-        url: '/countries',
+        url: apiMethods.countries(),
         success: (data) => $enums.setCountries(data),
     });
 };

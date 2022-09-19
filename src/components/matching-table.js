@@ -1,34 +1,12 @@
 import React from 'react';
-import { LeftCircleOutlined, ToTopOutlined } from '@ant-design/icons';
-import { Table, Badge, Button, Space } from 'antd';
+import { Table, Badge } from 'antd';
 
-const MatchingTable = ({ accommodations, loading, onMerge, onSetMain, onShowDetails, mergeResult }) => {
+const MatchingTable = ({ accommodations, mergeResult, ControlRow, loading }) => {
 
     const mergeGroups = Object.keys(mergeResult);
 
     const rows = [
-        {
-            header: '',
-            render: (item) => item.id !== accommodations[0].id ? <Space size="small">
-                { !mergeGroups.includes(item.htId) &&
-                    <Button
-                        type="primary"
-                        size="small"
-                        icon={<LeftCircleOutlined />}
-                        onClick={() => onMerge(item.htId)}
-                    >
-                        Merge
-                    </Button>
-                }
-                <Button
-                    size="small"
-                    icon={<ToTopOutlined />}
-                    onClick={() => onSetMain(item.htId)}
-                >
-                    Set As Main
-                </Button>
-            </Space> : null,
-        },
+        ControlRow,
         {
             header: 'Id',
             render: (item) => item.id,

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {useParams, useNavigate, useLocation} from 'react-router-dom';
 import { API, useTitle } from 'htcore';
-import { PageHeader, Button } from 'antd';
+import apiMethods from 'core/methods';
+import {PageHeader, Button, Space} from 'antd';
 import Loader from 'core/loader';
-import MatchingTable from './matching-table';
+import MatchingTable from 'components/matching-table';
+import {LeftCircleOutlined, ToTopOutlined} from '@ant-design/icons';
 
 const UncertainMatch = () => {
     const { relationAccommodationId } = useParams();
@@ -17,14 +19,19 @@ const UncertainMatch = () => {
     const [tableLoading, setTableLoading] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
 
-    useEffect(() => {
+    const loadPage = () => {
+        setPageLoading(true);
         API.get({
-            url: `/accommodations/uncertain-matches/relations/${relationAccommodationId}`,
+            url: apiMethods.uncertainMatch(relationAccommodationId),
             success: (result) => {
                 setAccommodations(result.accommodations);
                 setPageLoading(false);
             },
-        })
+        });
+    };
+
+    useEffect(() => {
+        loadPage();
     }, []);
 
     const onMerge = (htId) => {
@@ -63,7 +70,7 @@ const UncertainMatch = () => {
 
     const onShowDetails = (htId) => {
         ///GET
-        // /api/{v}/accommodations/{accommodationHtId}/detailed-data
+        // apiMethods.accommodationDetails
         alert('details ' + htId);
     };
 
@@ -85,11 +92,11 @@ const UncertainMatch = () => {
                     ],
                 })
             ),
-            RelationAccommodationId: match.relationAccommodationId
+            RelationAccommodationId: relationAccommodationId
         };
 
         API.post({
-            url: '/accommodations/uncertain-matches/merge',
+            url: apiMethods.uncertainMatchesMerge(),
             body,
             success: (result) => {
                 // todo: notify success
@@ -103,20 +110,42 @@ const UncertainMatch = () => {
 
     const onDeactivate = () => {
         //POST
-        // /api/{v}/accommodations/uncertain-matches/relations/{relationAccommodationId}/deactivate
+        // apiMethods.uncertainMatchDeactivate
         // Deactivates related uncertain matches by relation id
     };
 
     const onReset = () => {
         // todo: confirmation
-
-        setAccommodations(match?.accommodations);
+        loadPage();
         setMergeResult({});
     };
 
     if (!accommodations) {
         return null;
     }
+
+    const ControlRow = {
+        header: '',
+        render: (item) => item.id !== accommodations[0].id ? <Space size="small">
+            { !Object.keys(mergeResult).includes(item.htId) &&
+                <Button
+                    type="primary"
+                    size="small"
+                    icon={<LeftCircleOutlined />}
+                    onClick={() => onMerge(item.htId)}
+                >
+                    Merge
+                </Button>
+            }
+            <Button
+                size="small"
+                icon={<ToTopOutlined />}
+                onClick={() => onSetMain(item.htId)}
+            >
+                Set As Main
+            </Button>
+        </Space> : null,
+    };
 
     return (
         <>
@@ -135,11 +164,9 @@ const UncertainMatch = () => {
             />
             <MatchingTable
                 accommodations={accommodations}
-                tableLoading={tableLoading}
-                onMerge={onMerge}
-                onSetMain={onSetMain}
-                onShowDetails={onShowDetails}
                 mergeResult={mergeResult}
+                loading={tableLoading}
+                ControlRow={ControlRow}
             />
         </>
     );

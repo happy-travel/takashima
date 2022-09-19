@@ -9,8 +9,8 @@ import TablePages from 'components/table-pages';
 import { columns } from './columns';
 import usePages from 'components/use-pages';
 
-const UncertainMatchesSearch = ({ uncertainMatchesSearchForm }) => {
-    useTitle('Uncertain Matches');
+const HistorySearch = ({ historySearchForm }) => {
+    useTitle('Merge History');
 
     const [formValues, setFormValues] = useState(null);
     const [page, setPage] = usePages();
@@ -18,12 +18,12 @@ const UncertainMatchesSearch = ({ uncertainMatchesSearchForm }) => {
 
     useEffect(() => {
         if (page) {
-            uncertainMatchesSearchForm.validateFields().then(setFormValues);
+            historySearchForm.validateFields().then(setFormValues);
         }
     }, []);
 
-    const selectRow = ({ relationAccommodationId }) => {
-        navigate(`/match/${relationAccommodationId}`, {
+    const selectRow = ({ mergeId }) => {
+        navigate(`/history/${mergeId}`, {
             state: {
                 page,
             },
@@ -37,13 +37,13 @@ const UncertainMatchesSearch = ({ uncertainMatchesSearchForm }) => {
 
     return (
         <>
-            <PageHeader title="Uncertain Matches" />
-            <SearchForm form={uncertainMatchesSearchForm} onSubmit={onSubmit} />
+            <PageHeader title="Merge History" />
+            <SearchForm form={historySearchForm} onSubmit={onSubmit} />
             { Boolean(page) &&
                 <TablePages
                     columns={columns}
                     formValues={formValues}
-                    route={apiMethods.uncertainMatchesSearch()}
+                    route={apiMethods.mergeHistorySearch()}
                     serializeRequest={serializeRequest}
                     page={page}
                     setPage={setPage}
@@ -54,4 +54,4 @@ const UncertainMatchesSearch = ({ uncertainMatchesSearchForm }) => {
     );
 };
 
-export default UncertainMatchesSearch;
+export default HistorySearch;

@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Menu, Space } from 'antd';
 import {
     Logout,
+    InfoCircle,
+    LinkCircle,
+    RepeatCircle,
 } from 'iconsax-react';
 
 const TopMenu = () => (
@@ -11,9 +14,31 @@ const TopMenu = () => (
         width: '100%',
         alignItems: 'flex-start',
     }}>
-        <div className="logo-wrapper">
-            <img src="/images/logo/logo.png" alt="Happytravel.com" />
-        </div>
+        <Space direction="horizontal">
+            <div className="logo-wrapper">
+                <img src="/images/logo/logo.png" alt="Happytravel.com" />
+            </div>
+            <Menu
+                mode="horizontal"
+                items={[
+                    {
+                        label: <Link to="/">Instructions</Link>,
+                        key: '',
+                        icon: <InfoCircle />,
+                    },
+                    {
+                        label: <Link to="/match">Matches</Link>,
+                        key: 'match',
+                        icon: <LinkCircle />,
+                    },
+                    {
+                        label: <Link to="/history">History</Link>,
+                        key: 'history',
+                        icon: <RepeatCircle />,
+                    },
+                ]}
+            />
+        </Space>
         <Menu
             items={[
                 {
