@@ -14,7 +14,7 @@ steps:
   image: plugins/docker
   environment:
     IDENTITY_URL:
-      from_secret: IDENTITY_DEV_URL
+      from_secret: IDENTITY_DEV_TEST_URL
     NAKATSU_URL:
       from_secret: NAKATSU_DEV_URL
     BUILD_VERSION: ${DRONE_COMMIT_SHA:0:7}
