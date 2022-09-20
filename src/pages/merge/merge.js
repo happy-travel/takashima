@@ -61,9 +61,8 @@ const UncertainMatch = () => {
 
     const onReset = () => {
         // todo: confirmation
-
-        setAccommodations(match?.accommodations);
-        setMergeResult({});
+        loadPage();
+        setMergeResult([]);
     };
 
     const onUnmerge = (htId) => {
