@@ -17,7 +17,11 @@ const UncertainMatchesSearchForm = ({ form, onSubmit }) => (
         >
             <CountrySelector placeholder="Select Countries" />
         </Form.Item>
-        <Form.Item name="supplierCodes" label="Suppliers">
+        <Form.Item
+            name="supplierCodes"
+            label="Suppliers"
+            rules={[{ required: true, message: 'Please Select Suppliers' }]}
+        >
             <SupplierSelector placeholder="Select Suppliers" />
         </Form.Item>
         <Form.Item name="accommodationNameQuery" label="Accommodation Name Includes">

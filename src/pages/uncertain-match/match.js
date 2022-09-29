@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {useParams, useNavigate, useLocation} from 'react-router-dom';
 import { API, useTitle } from 'htcore';
 import apiMethods from 'core/methods';
-import {PageHeader, Button, Space} from 'antd';
+import {PageHeader, Button, Space, notification, Popconfirm} from 'antd';
 import Loader from 'core/loader';
 import MatchingTable from 'components/matching-table';
-import {LeftCircleOutlined, ToTopOutlined} from '@ant-design/icons';
+import {LeftCircleOutlined, QuestionCircleOutlined, ToTopOutlined} from '@ant-design/icons';
 
 const UncertainMatch = () => {
     const { relationAccommodationId } = useParams();
@@ -73,8 +73,6 @@ const UncertainMatch = () => {
     };
 
     const onSubmitMerge = () => {
-        // todo: confirmation
-
         if (!Object.keys(mergeResult).length) {
             return;
         }
@@ -96,11 +94,13 @@ const UncertainMatch = () => {
         API.post({
             url: apiMethods.uncertainMatchesMerge(),
             body,
-            success: (result) => {
-                // todo: notify success
-                // todo: return back
-                alert('success. result in console');
-                console.log(result);
+            success: () => {
+                notification.success({
+                    message: `Merged!`,
+                    description: 'This Uncertain match merged as you formed request. Merge result will be added to the Merge History soon.',
+                    placement: 'top',
+                });
+                navigate('./..');
             },
             after: () => setPageLoading(false)
         });
@@ -113,7 +113,6 @@ const UncertainMatch = () => {
     };
 
     const onReset = () => {
-        // todo: confirmation
         loadPage();
         setMergeResult({});
     };
@@ -154,10 +153,23 @@ const UncertainMatch = () => {
                 onBack={() => navigate(-1, { state: location?.state })}
                 title="Uncertain Match"
                 extra={<>
-                    <Button onClick={onReset}>Reset</Button>
-                    <Button type="primary" onClick={onSubmitMerge} disabled={!Object.keys(mergeResult).length}>
-                        Submit Merge Result
-                    </Button>
+                    <Popconfirm
+                        title="Reset changes on page？"
+                        icon={<QuestionCircleOutlined />}
+                        onConfirm={onReset}
+                    >
+                        <Button>Reset</Button>
+                    </Popconfirm>
+                    <Popconfirm
+                        title="Submit Merge request"
+                        icon={<QuestionCircleOutlined />}
+                        onConfirm={onSubmitMerge}
+                        disabled={!Object.keys(mergeResult).length}
+                    >
+                        <Button type="primary" disabled={!Object.keys(mergeResult).length}>
+                            Submit Merge Result
+                        </Button>
+                    </Popconfirm>
                 </>}
             />
             <MatchingTable

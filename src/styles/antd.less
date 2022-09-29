@@ -61,7 +61,7 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
-    height: 86px;
+    min-height: 86px;
 
     svg {
         width: 18px;
@@ -79,7 +79,8 @@ body {
     height: 52px;
 }
 
-.ant-notification-notice-with-icon .ant-notification-notice-message {
+.ant-notification-notice-with-icon .ant-notification-notice-message,
+.ant-notification-notice-with-icon .ant-notification-notice-description {
     margin-left: 80px;
     padding-top: 7px;
 }
