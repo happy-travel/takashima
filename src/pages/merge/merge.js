@@ -128,6 +128,7 @@ const UncertainMatch = () => {
                 tableLoading={tableLoading}
                 mergeResult={mergeResult}
                 ControlRow={ControlRow}
+                isMainSelected={true}
             />
         </>
     );
