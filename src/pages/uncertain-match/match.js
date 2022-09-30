@@ -18,6 +18,7 @@ const UncertainMatch = () => {
     const [mergeResult, setMergeResult] = useState({});
     const [tableLoading, setTableLoading] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
+    const [isMainSelected, setMainSelected] = useState(false);
 
     const loadPage = () => {
         setPageLoading(true);
@@ -54,6 +55,7 @@ const UncertainMatch = () => {
 
     const onSetMain = (htId) => {
         setTableLoading(true);
+        setMainSelected(true);
         setAccommodations([
             ...accommodations
                 .filter((accommodation) => accommodation.htId === htId),
@@ -115,6 +117,7 @@ const UncertainMatch = () => {
     const onReset = () => {
         loadPage();
         setMergeResult({});
+        setMainSelected(false);
     };
 
     if (!accommodations) {
@@ -123,8 +126,8 @@ const UncertainMatch = () => {
 
     const ControlRow = {
         header: '',
-        render: (item) => item.id !== accommodations[0].id ? <Space size="small">
-            { !Object.keys(mergeResult).includes(item.htId) &&
+        render: (item) => (item.id !== accommodations[0].id || !isMainSelected) ? <Space size="small">
+            { !Object.keys(mergeResult).includes(item.htId) && isMainSelected &&
                 <Button
                     type="primary"
                     size="small"
@@ -177,6 +180,7 @@ const UncertainMatch = () => {
                 mergeResult={mergeResult}
                 loading={tableLoading}
                 ControlRow={ControlRow}
+                isMainSelected={isMainSelected}
             />
         </>
     );

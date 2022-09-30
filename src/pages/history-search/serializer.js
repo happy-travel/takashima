@@ -15,9 +15,10 @@ export const serializeRequest = (values, top, skip) => {
         filters.accommodationNameQuery = safeString(values.accommodationNameQuery);
     }
 
+    filters.fromDate = values.rangeDates[0].format('YYYY-MM-DDT00:00:00') + 'Z';
+    filters.toDate = values.rangeDates[1].format('YYYY-MM-DDT23:59:59') + 'Z';
+
     return {
-        fromDate: values.rangeDates[0],
-        toDate: values.rangeDates[1],
         countryCodes: [],
         supplierCodes: [],
         accommodationNameQuery: '',

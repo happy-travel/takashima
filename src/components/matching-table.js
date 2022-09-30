@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Badge } from 'antd';
 
-const MatchingTable = ({ accommodations, mergeResult, ControlRow, loading }) => {
+const MatchingTable = ({ accommodations, mergeResult, ControlRow, loading, isMainSelected }) => {
 
     const mergeGroups = Object.keys(mergeResult);
 
@@ -69,7 +69,7 @@ const MatchingTable = ({ accommodations, mergeResult, ControlRow, loading }) => 
                 ...(mergeGroups.includes(item.htId) ? {
                     className: 'column-group',
                 } : {}),
-                ...(index ? {} : {
+                ...((index || !isMainSelected) ? {} : {
                     className: 'column-main',
                     fixed: 'left',
                 }),
