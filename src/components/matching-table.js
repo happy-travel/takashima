@@ -44,10 +44,13 @@ const MatchingTable = ({ accommodations, mergeResult, ControlRow, loading, isMai
         },
         {
             header: 'Rating',
-            render: (item) => <div className={isEqualStrings(main.rating, item.rating)}>
-                {new Array(HOTEL_STARS.indexOf(item.rating)).length}
-                {' '}<StarOutlined />
-            </div>,
+            render: (item) => (
+                item.rating ?
+                <div className={isEqualStrings(main.rating, item.rating)}>
+                    {new Array(HOTEL_STARS.indexOf(item.rating)).length}
+                    {' '}<StarOutlined />
+                </div> : '—'
+            ),
         },
         {
             header: 'GIATA',

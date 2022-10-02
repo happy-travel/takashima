@@ -180,9 +180,9 @@ const UncertainMatch = () => {
                         title="Deactivate a merge request？"
                         icon={<QuestionCircleOutlined />}
                         onConfirm={onDeactivate}
-                        disabled={Object.keys(mergeResult).length}
+                        disabled={Boolean(Object.keys(mergeResult).length)}
                     >
-                        <Button disabled={Object.keys(mergeResult).length}>
+                        <Button disabled={Boolean(Object.keys(mergeResult).length)}>
                             Nothing to Merge
                         </Button>
                     </Popconfirm>
