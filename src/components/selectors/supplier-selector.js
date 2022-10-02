@@ -11,12 +11,23 @@ const optionsGenerator = (list) =>
             label: value.enableState !== 'Disabled' ?
                 (value.name + ' (' + value.code + ')') :
                 <span><b>Disabled</b> <span style={{ color: '#999' }}>{value.name + ' (' + value.code + ')'}</span></span>,
+            text: value.name + ' ' + value.code,
         }));
+
+const filterOption = (input, option) => option.text.toLowerCase().indexOf(input.toLowerCase()) >= 0;
 
 const SupplierSelector = observer((props) => {
     const { options, loading } = useSelector($enums.suppliers, optionsGenerator);
 
-    return <EntitySelector placeholder="Any Suppliers" {...props} options={options} loading={loading} />;
+    return (
+        <EntitySelector
+            placeholder="Any Suppliers"
+            {...props}
+            options={options}
+            loading={loading}
+            filterOption={filterOption}
+        />
+    );
 });
 
 export default SupplierSelector;

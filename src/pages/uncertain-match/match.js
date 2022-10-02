@@ -99,7 +99,7 @@ const UncertainMatch = () => {
             success: () => {
                 notification.success({
                     message: `Merged!`,
-                    description: 'This Uncertain match merged as you formed request. Merge result will be added to the Merge History soon.',
+                    description: 'This Uncertain Match merged as you formed request. Merge result will be added to the Merge History soon.',
                     placement: 'top',
                 });
                 navigate('./..');
@@ -109,8 +109,21 @@ const UncertainMatch = () => {
     };
 
     const onDeactivate = () => {
+        setPageLoading(true);
+        API.post({
+            url: apiMethods.uncertainMatchDeactivate(relationAccommodationId),
+            success: () => {
+                notification.success({
+                    message: `Deactivate!`,
+                    description: 'This Uncertain Match was deactivated as you mentioned that there are nothing to merge.',
+                    placement: 'top',
+                });
+                navigate('./..');
+            },
+            after: () => setPageLoading(false)
+        });
         //POST
-        // apiMethods.uncertainMatchDeactivate
+        // apiMethods.
         // Deactivates related uncertain matches by relation id
     };
 
@@ -162,6 +175,16 @@ const UncertainMatch = () => {
                         onConfirm={onReset}
                     >
                         <Button>Reset</Button>
+                    </Popconfirm>
+                    <Popconfirm
+                        title="Deactivate a merge request？"
+                        icon={<QuestionCircleOutlined />}
+                        onConfirm={onDeactivate}
+                        disabled={Object.keys(mergeResult).length}
+                    >
+                        <Button disabled={Object.keys(mergeResult).length}>
+                            Nothing to Merge
+                        </Button>
                     </Popconfirm>
                     <Popconfirm
                         title="Submit Merge request"

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Select } from 'antd';
 
-const filterOption = (input, option) => option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+const defaultFilterOption = (input, option) => option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
 
 const EntitySelector = ({
     options,
@@ -15,6 +15,7 @@ const EntitySelector = ({
     style,
     showSearch = true,
     disabled,
+    filterOption = defaultFilterOption,
 }) => {
     const allSelected = multiple && options?.length > 1 && value?.length === options?.length;
 
