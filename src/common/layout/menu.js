@@ -24,6 +24,7 @@ const TopMenu = () => {
                 <Menu
                     mode="horizontal"
                     selectedKeys={selectedKey}
+                    style={{ minWidth: 550 }}
                     items={[
                         {
                             label: <Link to="/">Instructions</Link>,
