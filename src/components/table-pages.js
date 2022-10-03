@@ -8,10 +8,12 @@ const PAGE_SIZE = 10;
 const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id', page, setPage, selectRow }) => {
     const [list, setList] = useState(null);
     const [total, setTotal] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const loadPage = () => {
         setList(null);
         if (formValues) {
+            setLoading(true);
             API.post({
                 url: route,
                 body: serializeRequest(formValues, PAGE_SIZE, (page - 1) * PAGE_SIZE),
@@ -22,6 +24,9 @@ const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id
                     );
                     setTotal(result.totalNumberOfItems);
                 },
+                after: () => {
+                    setLoading(false);
+                }
             });
         }
     };
@@ -29,6 +34,10 @@ const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id
     useEffect(() => {
         loadPage();
     }, [formValues, page]);
+
+    if (!loading && !formValues) {
+        return null;
+    }
 
     return (
         <Table

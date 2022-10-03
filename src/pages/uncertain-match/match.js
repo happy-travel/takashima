@@ -68,12 +68,6 @@ const UncertainMatch = () => {
         }, 300);
     };
 
-    const onShowDetails = (htId) => {
-        ///GET
-        // apiMethods.accommodationDetails
-        alert('details ' + htId);
-    };
-
     const onSubmitMerge = () => {
         if (!Object.keys(mergeResult).length) {
             return;
@@ -122,9 +116,6 @@ const UncertainMatch = () => {
             },
             after: () => setPageLoading(false)
         });
-        //POST
-        // apiMethods.
-        // Deactivates related uncertain matches by relation id
     };
 
     const onReset = () => {

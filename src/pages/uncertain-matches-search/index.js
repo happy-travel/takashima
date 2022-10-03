@@ -39,17 +39,15 @@ const UncertainMatchesSearch = ({ uncertainMatchesSearchForm }) => {
         <>
             <PageHeader title="Uncertain Matches" />
             <SearchForm form={uncertainMatchesSearchForm} onSubmit={onSubmit} />
-            { Boolean(page) &&
-                <TablePages
-                    columns={columns}
-                    formValues={formValues}
-                    route={apiMethods.uncertainMatchesSearch()}
-                    serializeRequest={serializeRequest}
-                    page={page}
-                    setPage={setPage}
-                    selectRow={selectRow}
-                />
-            }
+            <TablePages
+                columns={columns}
+                formValues={formValues}
+                route={apiMethods.uncertainMatchesSearch()}
+                serializeRequest={serializeRequest}
+                page={page}
+                setPage={setPage}
+                selectRow={selectRow}
+            />
         </>
     );
 };

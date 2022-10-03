@@ -39,17 +39,15 @@ const HistorySearch = ({ historySearchForm }) => {
         <>
             <PageHeader title="Merge History" />
             <SearchForm form={historySearchForm} onSubmit={onSubmit} />
-            { Boolean(page) &&
-                <TablePages
-                    columns={columns}
-                    formValues={formValues}
-                    route={apiMethods.mergeHistorySearch()}
-                    serializeRequest={serializeRequest}
-                    page={page}
-                    setPage={setPage}
-                    selectRow={selectRow}
-                />
-            }
+            <TablePages
+                columns={columns}
+                formValues={formValues}
+                route={apiMethods.mergeHistorySearch()}
+                serializeRequest={serializeRequest}
+                page={page}
+                setPage={setPage}
+                selectRow={selectRow}
+            />
         </>
     );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Badge } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
 import { HOTEL_STARS } from 'htcore/enum';
+import AccommodationDetails from './accommodation-details/accommodation-details';
 
 const isEqualStrings = (a = '', b = '') => (
     String(a).toLowerCase() === String(b).toLowerCase() ? 'equal' : ''
@@ -22,7 +23,9 @@ const MatchingTable = ({ accommodations, mergeResult, ControlRow, loading, isMai
         ControlRow,
         {
             header: 'HtId',
-            render: (item) => item.htId,
+            render: (item) => (<>
+                <AccommodationDetails htId={item.htId} />
+            </>),
         },
         {
             header: 'Locality',
