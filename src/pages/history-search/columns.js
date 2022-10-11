@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { ArrowRight } from 'iconsax-react';
 
 export const columns = (navigationState, selectRow) => [
@@ -26,5 +27,9 @@ export const columns = (navigationState, selectRow) => [
     {
         header: 'Location',
         cell: (item) => item.sourceAccommodation.locality + ', ' + item.sourceAccommodation.country,
+    },
+    {
+        header: 'Merged',
+        cell: (item) => moment(item.mergeDate).format('HH:mm:ss, DD.MM'),
     },
 ];

@@ -24,6 +24,9 @@ const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id
                     );
                     setTotal(result.totalNumberOfItems);
                 },
+                error: () => {
+                    setList([]);
+                },
                 after: () => {
                     setLoading(false);
                 }

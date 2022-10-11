@@ -6,6 +6,7 @@ import {PageHeader, Button, Space, notification, Popconfirm} from 'antd';
 import Loader from 'core/loader';
 import MatchingTable from 'components/matching-table';
 import {RightCircleOutlined, QuestionCircleOutlined} from '@ant-design/icons';
+import moment from 'moment/moment';
 
 const UncertainMatch = () => {
     const { mergeId } = useParams();
@@ -18,6 +19,7 @@ const UncertainMatch = () => {
     const [mergeResult, setMergeResult] = useState([]);
     const [tableLoading, setTableLoading] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
+    const [mergeDate, setMergeDate] = useState(null);
 
     const loadPage = () => {
         setPageLoading(true);
@@ -28,6 +30,7 @@ const UncertainMatch = () => {
                     result.sourceAccommodation,
                     ...result.mergedAccommodations,
                 ]);
+                setMergeDate(result.mergeDate);
                 setPageLoading(false);
             },
         });
@@ -102,7 +105,8 @@ const UncertainMatch = () => {
             }
             <PageHeader
                 onBack={() => navigate(-1, { state: location?.state })}
-                title="History"
+                title={`Merged at ${moment(mergeDate).format('HH:mm:ss, DD.MM.YYYY')}`}
+                subTitle={`#${mergeId}`}
                 extra={<>
                     <Popconfirm
                         title="Reset changes on page？"
