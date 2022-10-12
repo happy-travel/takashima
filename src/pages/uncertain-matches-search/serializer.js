@@ -15,10 +15,6 @@ export const serializeRequest = (values, top, skip) => {
         filters.accommodationNameQuery = safeString(values.accommodationNameQuery);
     }
 
-    if (!Object.keys(filters).length) {
-        return null;
-    }
-
     return {
         ...filters,
         top: top,
