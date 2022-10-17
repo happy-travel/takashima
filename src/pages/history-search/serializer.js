@@ -1,6 +1,6 @@
 const safeString = (val) => val.replace(/'/g, "''");
 
-export const serializeRequest = (values, top, skip) => {
+export const serializeRequest = (values, top = 10, skip = 0) => {
     const filters = {};
 
     if (values.countryCodes) {
