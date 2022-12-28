@@ -5,7 +5,16 @@ import { Table } from 'antd';
 
 const PAGE_SIZE = 10;
 
-const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id', page, setPage, selectRow }) => {
+const TablePages = ({
+    columns,
+    serializeRequest,
+    formValues,
+    route,
+    rowKey = 'id',
+    page,
+    setPage,
+    selectRow,
+}) => {
     const [list, setList] = useState(null);
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
@@ -18,10 +27,7 @@ const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id
                 url: route,
                 body: serializeRequest(formValues, PAGE_SIZE, (page - 1) * PAGE_SIZE),
                 success: (result) => {
-                    setList(
-                        result.accommodationUncertainMatchRelationsData ||
-                        result.accommodationMerges
-                    );
+                    setList(result.accommodationUncertainMatchRelationsData || result.accommodationMerges);
                     setTotal(result.totalNumberOfItems);
                 },
                 error: () => {
@@ -29,7 +35,7 @@ const TablePages = ({ columns, serializeRequest, formValues, route, rowKey = 'id
                 },
                 after: () => {
                     setLoading(false);
-                }
+                },
             });
         }
     };

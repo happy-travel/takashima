@@ -14,10 +14,7 @@ const usePages = (defaultPage) => {
         });
     };
 
-    return [
-        page,
-        setPage,
-    ];
+    return [page, setPage];
 };
 
 export default usePages;

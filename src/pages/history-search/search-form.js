@@ -13,7 +13,7 @@ const HistorySearchForm = ({ form, onSubmit }) => (
         layout="vertical"
         style={{ marginBottom: 30 }}
         initialValues={{
-            rangeDates: [moment().add(-1, 'w'), moment()]
+            rangeDates: [moment().add(-1, 'w'), moment()],
         }}
     >
         <Form.Item
@@ -21,21 +21,12 @@ const HistorySearchForm = ({ form, onSubmit }) => (
             label="Date of Merge"
             rules={[{ required: true, message: 'Please Select Dates' }]}
         >
-            <RangePicker
-                placeholder={['From', 'Till']}
-                disabledDate={(date) => new Date() < date}
-            />
+            <RangePicker placeholder={['From', 'Till']} disabledDate={(date) => new Date() < date} />
         </Form.Item>
-        <Form.Item
-            name="countryCodes"
-            label="Countries"
-        >
+        <Form.Item name="countryCodes" label="Countries">
             <CountrySelector placeholder="Select Countries" />
         </Form.Item>
-        <Form.Item
-            name="supplierCodes"
-            label="Suppliers"
-        >
+        <Form.Item name="supplierCodes" label="Suppliers">
             <SupplierSelector placeholder="Select Suppliers" />
         </Form.Item>
         <Form.Item name="accommodationNameQuery" label="Accommodation Name Includes">

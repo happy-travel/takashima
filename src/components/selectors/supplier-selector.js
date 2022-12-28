@@ -8,9 +8,15 @@ const optionsGenerator = (list) =>
         .sort((a, b) => Number(a.enableState === 'Disabled') - Number(b.enableState === 'Disabled'))
         .map((value) => ({
             value: value.code,
-            label: value.enableState !== 'Disabled' ?
-                (value.name + ' (' + value.code + ')') :
-                <span><b>Disabled</b> <span style={{ color: '#999' }}>{value.name + ' (' + value.code + ')'}</span></span>,
+            label:
+                value.enableState !== 'Disabled' ? (
+                    value.name + ' (' + value.code + ')'
+                ) : (
+                    <span>
+                        <b>Disabled</b>{' '}
+                        <span style={{ color: '#999' }}>{value.name + ' (' + value.code + ')'}</span>
+                    </span>
+                ),
             text: value.name + ' ' + value.code,
         }));
 

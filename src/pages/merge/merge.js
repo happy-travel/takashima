@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {useParams, useNavigate, useLocation} from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { API, useTitle } from 'htcore';
 import apiMethods from 'core/methods';
-import {PageHeader, Button, Space, notification, Popconfirm} from 'antd';
+import { PageHeader, Button, Space, notification, Popconfirm } from 'antd';
 import Loader from 'core/loader';
 import MatchingTable from 'components/matching-table';
-import {RightCircleOutlined, QuestionCircleOutlined} from '@ant-design/icons';
+import { RightCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import moment from 'moment/moment';
 
 const UncertainMatch = () => {
@@ -26,10 +26,7 @@ const UncertainMatch = () => {
         API.get({
             url: apiMethods.mergeHistoryItem(mergeId),
             success: (result) => {
-                setAccommodations([
-                    result.sourceAccommodation,
-                    ...result.mergedAccommodations,
-                ]);
+                setAccommodations([result.sourceAccommodation, ...result.mergedAccommodations]);
                 setMergeDate(result.mergeDate);
                 setPageLoading(false);
             },
@@ -48,7 +45,7 @@ const UncertainMatch = () => {
         API.post({
             url: apiMethods.mergeHistoryUnmerge(mergeId),
             body: {
-                mergedAccommodationHtIds: mergeResult
+                mergedAccommodationHtIds: mergeResult,
             },
             success: () => {
                 notification.success({
@@ -58,7 +55,7 @@ const UncertainMatch = () => {
                 });
                 navigate('./..');
             },
-            after: () => setPageLoading(false)
+            after: () => setPageLoading(false),
         });
     };
 
@@ -69,10 +66,7 @@ const UncertainMatch = () => {
 
     const onUnmerge = (htId) => {
         setTableLoading(true);
-        setMergeResult([
-            ...mergeResult,
-            htId,
-        ]);
+        setMergeResult([...mergeResult, htId]);
         setTimeout(() => {
             setTableLoading(false);
         }, 300);
@@ -80,18 +74,21 @@ const UncertainMatch = () => {
 
     const ControlRow = {
         header: '',
-        render: (item) => item.id !== accommodations[0].id ? <Space size="small">
-            { !mergeResult.includes(item.htId) &&
-                <Button
-                    type="primary"
-                    size="small"
-                    icon={<RightCircleOutlined />}
-                    onClick={() => onUnmerge(item.htId)}
-                >
-                    Unmerge
-                </Button>
-            }
-        </Space> : null,
+        render: (item) =>
+            item.id !== accommodations[0].id ? (
+                <Space size="small">
+                    {!mergeResult.includes(item.htId) && (
+                        <Button
+                            type="primary"
+                            size="small"
+                            icon={<RightCircleOutlined />}
+                            onClick={() => onUnmerge(item.htId)}
+                        >
+                            Unmerge
+                        </Button>
+                    )}
+                </Space>
+            ) : null,
     };
 
     if (!accommodations) {
@@ -100,32 +97,32 @@ const UncertainMatch = () => {
 
     return (
         <>
-            { pageLoading &&
-                <Loader page />
-            }
+            {pageLoading && <Loader page />}
             <PageHeader
                 onBack={() => navigate(-1, { state: location?.state })}
                 title={`Merged at ${moment(mergeDate).format('HH:mm:ss, DD.MM.YYYY')}`}
                 subTitle={`#${mergeId}`}
-                extra={<>
-                    <Popconfirm
-                        title="Reset changes on page？"
-                        icon={<QuestionCircleOutlined />}
-                        onConfirm={onReset}
-                    >
-                        <Button>Reset</Button>
-                    </Popconfirm>
-                    <Popconfirm
-                        title="Submit Unmerge request"
-                        icon={<QuestionCircleOutlined />}
-                        onConfirm={onSubmit}
-                        disabled={!Object.keys(mergeResult).length}
-                    >
-                        <Button type="primary" disabled={!Object.keys(mergeResult).length}>
-                            Submit Unmerge
-                        </Button>
-                    </Popconfirm>
-                </>}
+                extra={
+                    <>
+                        <Popconfirm
+                            title="Reset changes on page？"
+                            icon={<QuestionCircleOutlined />}
+                            onConfirm={onReset}
+                        >
+                            <Button>Reset</Button>
+                        </Popconfirm>
+                        <Popconfirm
+                            title="Submit Unmerge request"
+                            icon={<QuestionCircleOutlined />}
+                            onConfirm={onSubmit}
+                            disabled={!Object.keys(mergeResult).length}
+                        >
+                            <Button type="primary" disabled={!Object.keys(mergeResult).length}>
+                                Submit Unmerge
+                            </Button>
+                        </Popconfirm>
+                    </>
+                }
             />
             <MatchingTable
                 accommodations={accommodations}

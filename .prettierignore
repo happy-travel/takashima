@@ -1,0 +1,9 @@
+Helm
+nginx
+public
+.husky
+.drone.yml
+.env
+package.json
+package-lock.json
+src/htcore

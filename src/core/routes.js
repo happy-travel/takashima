@@ -6,7 +6,7 @@ import HistorySearchPage from 'pages/history-search';
 import MergePage from 'pages/merge/merge';
 import NothingFoundPage from 'common/nothing-found';
 import HomePage from 'pages/home';
-import {Form} from 'antd';
+import { Form } from 'antd';
 
 const RoutesPage = () => {
     const [uncertainMatchesSearchForm] = Form.useForm();
@@ -14,7 +14,12 @@ const RoutesPage = () => {
 
     return (
         <Routes>
-            <Route path="/match" element={<UncertainMatchesSearchPage uncertainMatchesSearchForm={uncertainMatchesSearchForm} />} />
+            <Route
+                path="/match"
+                element={
+                    <UncertainMatchesSearchPage uncertainMatchesSearchForm={uncertainMatchesSearchForm} />
+                }
+            />
             <Route path="/match/:relationAccommodationId" element={<UncertainMatch />} />
             <Route path="/history" element={<HistorySearchPage historySearchForm={historySearchForm} />} />
             <Route path="/history/:mergeId" element={<MergePage />} />

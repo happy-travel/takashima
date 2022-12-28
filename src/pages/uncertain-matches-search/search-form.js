@@ -4,22 +4,11 @@ import SupplierSelector from 'components/selectors/supplier-selector';
 import CountrySelector from 'components/selectors/country-selector';
 
 const UncertainMatchesSearchForm = ({ form, onSubmit }) => (
-    <Form
-        form={form}
-        onFinish={onSubmit}
-        layout="vertical"
-        style={{ marginBottom: 30 }}
-    >
-        <Form.Item
-            name="countryCodes"
-            label="Countries"
-        >
+    <Form form={form} onFinish={onSubmit} layout="vertical" style={{ marginBottom: 30 }}>
+        <Form.Item name="countryCodes" label="Countries">
             <CountrySelector placeholder="Select Countries" />
         </Form.Item>
-        <Form.Item
-            name="supplierCodes"
-            label="Suppliers"
-        >
+        <Form.Item name="supplierCodes" label="Suppliers">
             <SupplierSelector placeholder="Select Suppliers" />
         </Form.Item>
         <Form.Item name="accommodationNameQuery" label="Accommodation Name Includes">
